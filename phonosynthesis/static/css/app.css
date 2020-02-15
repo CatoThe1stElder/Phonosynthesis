@@ -23,7 +23,7 @@ body {
 }
 
 
-/* ====== ESRP: Styling ====== */
+/* ====== ERSP: Styling ====== */
 #csv-upload-github {
   width: 50%;
 }
@@ -39,6 +39,7 @@ body {
     z-index: 2;
     top: 0px;
     left: 0px;
+    display: none;
 }
 .loading-screen.text {
     color: black;
