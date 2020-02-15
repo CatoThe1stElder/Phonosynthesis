@@ -33,7 +33,12 @@ def handle_infer_rule():
   words = []
   for stem in request.json['wordStems']:
     words.append((stem['underlyingForm'], stem['realization']))
-  print("Words are here");
+    
+  # ERSP Test:
+  print("Begin - words Array (app.py)")
+  print(words)
+  print("End - words Array (app.py)")
+
   return jsonify(infer_rule(words))
 
 def format_features(features):
