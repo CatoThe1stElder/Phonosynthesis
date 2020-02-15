@@ -32,14 +32,13 @@ body {
 .loading-screen.backdrop {
     background: red;
     opacity: 0.5;
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
+    margin-bottom: -9999px;
+    height: 100%;
+    width: 100%;
+    position: fixed;
     z-index: 2;
-    flex: auto;
     top: 0px;
     left: 0px;
-    display: none;
 }
 .loading-screen.text {
     color: black;

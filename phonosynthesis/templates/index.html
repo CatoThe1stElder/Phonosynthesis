@@ -4,7 +4,7 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Phonosynth Demo (ERSP Version)</title>
+<title>Phonosynth Demo (ERSP)</title>
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
@@ -17,7 +17,7 @@
   {% if config['ENV'] == 'development' %}
     <p class="app-alert">Development
   {% endif %}
-  <h1>Phonosynth Demo</h1>
+  <h1>Phonosynth Demo (ESRP)</h1>
   <ul id="rules" class="callout">
     <li>Upload or select a file and infer a rule
   </ul>
@@ -29,11 +29,22 @@
 
     <!-- ERSP: New Input Dropdown to Directly Accesss GitHub Files -->
     <select id="csv-upload-github" class="csv-upload-github">
-      <option value="AxinicaCampa-UF">Volvo</option>
-      <option value="saab">Saab</option>
-      <option value="mercedes">Mercedes</option>
-      <option value="audi">Audi</option>
+      <option value = ""></option>
     </select>
+        
+    <script>
+      var data = JSON.parse('{{ datalist | tojson | safe}}');
+      var select = document.getElementById("csv-upload-github")
+
+      //create a dynamic dropdown menu based on the arr
+        for(var key in data){
+          var option = document.createElement("OPTION"),
+              txt = document.createTextNode(key);
+          option.appendChild(txt);
+          option.setAttribute("value",key);
+          select.insertBefore(option,select.lastChild);
+        }
+    </script>
     
     <button id="infer" type="button" class="button cell small-2">Infer rule</button>
   </div>
