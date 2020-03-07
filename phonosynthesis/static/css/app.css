@@ -63,4 +63,18 @@ body {
   width: 50%;
 }
 
+#unsatisfiable-constraints {
+  box-shadow: inset 0px 0px 3px #0000004a;
+  list-style: none !important;
+  color: #c90101;
+}
+#unsatisfiable-constraints div:first-of-type {
+  font-weight: bold;
+  position: relative;
+  z-index: 3;
+}
+  .constraint {
+    position: relative;
+    z-index: 4;
+  }
 

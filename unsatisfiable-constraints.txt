@@ -1,0 +1,5 @@
+Unsatisfiable constraints:
+/o . d . #/ didn't change
+/a . z . #/ changed
+/i . b . #/ changed
+/o . ɡ . #/ changed

@@ -182,6 +182,11 @@ def infer_condition(triples_changed):
   #opt.add(z3.Bool(f'alpha left right strident'))
   #solver.assert_and_track(z3.Bool(f'alpha left right s'), 'alrsonorant')
 
+  # ERSP: unsatisfiable-constraints.txt Generation
+  f = open("unsatisfiable-constraints.txt", "w")
+  # f.write("Now the file has more content!")
+
+
   i = 0
   if True:
     i += 1
@@ -217,17 +222,31 @@ def infer_condition(triples_changed):
       solver.check()
       unsat_core = solver.unsat_core()
       print('\033[1;31mUnsatisfiable constraints:\033[0;31m') # Set text color to red
+      
+      f.write('Unsatisfiable constraints:\n')
+      
       for name in unsat_core:
         if str(name) in formulas:
           formula, (l, c, r), changed = formulas[str(name)]
           changed_str = 'changed' if changed else "didn't change"
           print(f'/{l} . {c} . {r}/ {changed_str}')
+
+          f.write(f'/{l} . {c} . {r}/ {changed_str}\n')
+
         else:
           print(f'{str(name)}')
+
+          f.write(f'{str(name)}\n')
+
       print('\033[0;0m') # Reset text color and add a newline
+
+      f.write('')
+
       return None
       #return None
   print('')
+
+  f.close()
 
 LOG_NUM_MODELS = 0
 LIKELIHOOD_CONSTRAINTS = set()

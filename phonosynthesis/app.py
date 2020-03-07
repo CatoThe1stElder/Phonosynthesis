@@ -1,4 +1,5 @@
 from flask import Flask, abort, jsonify, request, render_template
+from pprint import pprint
 from phonosynthesis import ipa_data
 from phonosynthesis import phonosynth
 
@@ -34,12 +35,49 @@ def handle_infer_rule():
   for stem in request.json['wordStems']:
     words.append((stem['underlyingForm'], stem['realization']))
     
-  # ERSP Test:
-  print("Begin - words Array (app.py)")
-  print(words)
-  print("End - words Array (app.py)")
+  # ERSP Test: Identify and Write Feature Vector (If any) to TXT file
+  g = open("inferred_rule.txt", "w") 
+  g.write("Begin - inferred_rule(words)\n")
+  # print("Begin - infer_rule(words)\n")
+  abc = infer_rule(words)
+  if not abc:
+    g.write("List is empty\n")
+  else:
+    g.write("List is NOT empty\n")
+    g.write(abc[0]+"\n")
+    # print pprint(abc)
+  g.write("End - inferred_rule(words)\n")
+  # print("End - infer_rule(words)\n")
+  g.close()
 
-  return jsonify(infer_rule(words))
+  # ERSP Test: Concate unsatisfiable-constraints to inferred_rule
+  fin = open("unsatisfiable-constraints.txt", "r")
+  data2 = fin.read()
+  fin.close()
+  fout = open("inferred_rule.txt", "a")
+  fout.write("\n")
+  print("fin data")
+  print(data2)
+  print("fin data end")
+  fout.write(data2)
+  fout.close()
+
+  data2 = []
+  with open('unsatisfiable-constraints.txt') as f:
+    for line in f:
+      data2.append(line)
+  
+  # print("test array")
+  # print(data2[0])
+  
+  abc.extend(data2)
+  print("test abc")
+  print(abc[0])
+  # print(abc[1]) 
+
+
+
+  return jsonify(abc)
 
 def format_features(features):
   matching_letter = ipa_data.get_matching_letter(features)
